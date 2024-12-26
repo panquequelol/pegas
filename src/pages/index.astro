@@ -1,11 +1,48 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import List from "../components/cards/list";
+import OfferCard from "../components/cards/offer-card.tsx";
+import type { Offer } from "../components/cards/type";
+import Layout from "../layouts/Layout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const currentDate = new Date();
+const month = new Intl.DateTimeFormat("es-ES", { month: "long" }).format(
+  currentDate
+);
+const day = currentDate.getDate();
+const year = currentDate.getFullYear();
+
+const offers = [
+  {
+    type: "JUNIOR",
+    salary: "¥6.5M a ¥8.5M anuales",
+    url: "https://www.tokyodev.com/companies/hennge/jobs/junior-front-end-developer-vue",
+    title: "Junior Front end Developer (Vue)",
+    company: "HENNGE",
+    content:
+      "We're currently looking for a Junior Frontend Developer (Vue) to join our fast-paced growing team. As part of the engineering team, you will be responsible for building cloud-security solutions used by thousands of enterprise companies. Our flagship product, HENNGE One, provides functionalities ranging from access control, email filtering, online storage, and email archiving. We focus on implementing state-of-the-art security functionalities, ensuring SLA 99.9% in distributed fault-tolerant deployment, and providing the best user experience to our customers.",
+  },
+  {
+    type: "INTERNSHIP",
+    salary: "No remunerada",
+    url: "https://www.tokyodev.com/companies/hennge/jobs/global-intern",
+    title: "Global Internship Program",
+    company: "HENNGE",
+    content:
+      "Join us for a unique 4-6 weeks of tech internship in our Shibuya office, offering you both personal and professional development opportunities. Experience working onsite in a Japanese company that prides itself on cultivating an internationally diverse culture.",
+  },
+  {
+    type: "NEWGRAD",
+    url: "https://t.me/DCCEmpleo/1674",
+    title: "Ingeniero/a de Software Full Stack",
+    company: "Zoön Loyalty",
+    content:
+      "En Zoön Loyalty buscamos un Ingeniero/a de Software Full Stack que pueda contribuir al desarrollo de soluciones innovadoras mientras crece profesionalmente en un ambiente colaborativo y orientado al éxito.",
+    salary: "Desde $1.300.000",
+  },
+] as Offer[];
 ---
 
 <Layout>
-	<Welcome />
+  <h1 class="mb-2">Últimas ofertas ({day} {month}, {year})</h1>
+  <List client:idle offers={offers} />
 </Layout>
